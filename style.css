@@ -267,7 +267,7 @@ footer span {
 }
 
 .fade-in {
-  animation: fadeInUp 0.6s ease-out;
+  animation: fadeInUp 0.6s ease-out both;
 }
 
 .pulseGlow {
