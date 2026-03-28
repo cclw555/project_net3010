@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Zongrui Liu">
+  <meta name="description" content="Breakout — a classic arcade brick-breaker game.">
+  <title>Breakout — Home</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── HERO ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 20px 80px;
+      position: relative;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 6vw, 56px);
+      color: #fff;
+      letter-spacing: 8px;
+      margin-bottom: 8px;
+      position: relative;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 440px;
+      line-height: 1.7;
+      margin: 24px 0 40px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ── DECORATIVE BRICKS ── */
+    .hero-bricks {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero-brick {
+      position: absolute;
+      border-radius: 4px;
+      opacity: 0.08;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 60px 0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .feature-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-family: var(--font-display);
+      font-size: 11px;
+      color: var(--neon-yellow);
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── HOW TO PLAY ── */
+    .how-to-play {
+      padding: 60px 0;
+    }
+
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .rule-card {
+      padding: 28px 24px;
+      position: relative;
+    }
+
+    .rule-number {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: rgba(0, 240, 255, 0.1);
+      position: absolute;
+      top: 16px;
+      right: 20px;
+    }
+
+    .rule-card h4 {
+      font-family: var(--font-display);
+      font-size: 10px;
+      color: var(--neon-cyan);
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .rule-card p {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .controls-table {
+      width: 100%;
+      max-width: 400px;
+      margin: 40px auto 0;
+    }
+
+    .controls-table .key {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: 6px;
+      font-family: var(--font-display);
+      font-size: 9px;
+      color: var(--neon-cyan);
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .controls-row span:last-child {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">BREAKOUT</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="game.html">Play</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+      <li><a href="login.html" id="nav-auth-link">Login</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bricks" id="heroBricks"></div>
+    <h1 class="hero-title fade-in"><span>BREAKOUT</span></h1>
+    <p class="hero-sub fade-in fade-in-delay-1">
+      Smash bricks, rack up points, and climb the global leaderboard.
+    </p>
+    <div class="hero-actions fade-in fade-in-delay-2">
+      <a href="game.html" class="btn btn-primary">▶ Play Now</a>
+      <a href="#how-to-play" class="btn btn-secondary">How to Play</a>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="container">
+      <div class="features-grid">
+        <div class="card feature-card fade-in fade-in-delay-1">
+          <div class="feature-icon">🧱</div>
+          <h3>Classic Gameplay</h3>
+          <p>4 rows * 8 columns of bricks. Bounce the ball, break them all, and don't let it drop.</p>
+        </div>
+        <div class="card feature-card fade-in fade-in-delay-2">
+          <div class="feature-icon">🏆</div>
+          <h3>Leaderboard</h3>
+          <p>Compete for the top spot. Your best scores are saved and ranked globally.</p>
+        </div>
+        <div class="card feature-card fade-in fade-in-delay-3">
+          <div class="feature-icon">⚡</div>
+          <h3>Smooth &amp; Fast</h3>
+          <p>canvas rendering with responsive controls and fluid physics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO PLAY -->
+  <section class="how-to-play" id="how-to-play">
+    <div class="container">
+      <h2 class="section-title text-center fade-in">// How to Play</h2>
+
+      <div class="rules-grid">
+        <div class="card rule-card fade-in fade-in-delay-1">
+          <span class="rule-number">01</span>
+          <h4>Objective</h4>
+          <p>Destroy all 32 bricks on the board to win. Each brick awards 10 points.</p>
+        </div>
+        <div class="card rule-card fade-in fade-in-delay-2">
+          <span class="rule-number">02</span>
+          <h4>Controls</h4>
+          <p>Use the left and right arrow keys to slide the paddle. Keep the ball in play!</p>
+        </div>
+        <div class="card rule-card fade-in fade-in-delay-3">
+          <span class="rule-number">03</span>
+          <h4>Scoring</h4>
+          <p>+10 points per brick. Clear the entire board for a perfect 320-point run.</p>
+        </div>
+        <div class="card rule-card fade-in fade-in-delay-4">
+          <span class="rule-number">04</span>
+          <h4>Game Over</h4>
+          <p>If the ball falls past your paddle, it's game over. Your score is submitted automatically.</p>
+        </div>
+      </div>
+
+      <div class="controls-table fade-in fade-in-delay-3">
+        <div class="controls-row">
+          <span class="key">← Arrow</span>
+          <span>Move paddle left</span>
+        </div>
+        <div class="controls-row">
+          <span class="key">→ Arrow</span>
+          <span>Move paddle right</span>
+        </div>
+        <div class="controls-row">
+          <span class="key">P</span>
+          <span>Pause / Resume</span>
+        </div>
+        <div class="controls-row">
+          <span class="key">R</span>
+          <span>Restart game</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Built by <span>Zongrui Liu</span> · Breakout 2026</p>
+  </footer>
+
+  <script>
+    // Generate decorative floating bricks in the hero
+    const bricksContainer = document.getElementById('heroBricks');
+    const colors = ['#00f0ff', '#ff00aa', '#ffe600', '#39ff14', '#ff6a00'];
+    for (let i = 0; i < 18; i++) {
+      const brick = document.createElement('div');
+      brick.className = 'hero-brick';
+      brick.style.width = (30 + Math.random() * 60) + 'px';
+      brick.style.height = (14 + Math.random() * 20) + 'px';
+      brick.style.left = Math.random() * 100 + '%';
+      brick.style.top = Math.random() * 100 + '%';
+      brick.style.background = colors[Math.floor(Math.random() * colors.length)];
+      brick.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
+      bricksContainer.appendChild(brick);
+    }
+
+    // Update nav auth link based on login state
+    const user = JSON.parse(localStorage.getItem('breakout_user') || 'null');
+    if (user) {
+      const link = document.getElementById('nav-auth-link');
+      link.textContent = user.username;
+      link.href = '#';
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (confirm('Log out?')) {
+          localStorage.removeItem('breakout_user');
+          location.reload();
+        }
+      });
+    }
+  </script>
+</body>
+</html>
