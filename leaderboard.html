@@ -6,55 +6,9 @@
   <meta name="author" content="">
   <meta name="description" content="Breakout — Global Leaderboard">
   <title>Breakout — Leaderboard</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .lb-wrapper {
-      padding: 60px 0;
-    }
-
-    .lb-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 32px;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .lb-empty {
-      text-align: center;
-      padding: 80px 20px;
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-
-    .lb-empty-icon {
-      font-size: 48px;
-      margin-bottom: 16px;
-      opacity: 0.5;
-    }
-
-    .player-name {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .player-score {
-      font-family: var(--font-display);
-      font-size: 12px;
-      color: var(--neon-yellow);
-    }
-
-    .player-date {
-      color: var(--text-muted);
-      font-size: 12px;
-    }
-
-    .your-row {
-      outline: 1px solid rgba(0, 240, 255, 0.2);
-      background: rgba(0, 240, 255, 0.04) !important;
-    }
-  </style>
+  <link rel="stylesheet" href="include/style.css">
+  <link rel="stylesheet" href="include/leaderboard.css">
+  <script src="include/leaderboard.js" defer></script>
 </head>
 <body>
 
@@ -97,68 +51,5 @@
   <footer>
     <p>Leaderboard · Breakout 2026</p>
   </footer>
-
-  <script>
-    const currentUser = JSON.parse(localStorage.getItem('breakout_user') || 'null');
-
-    // Update nav
-    if (currentUser) {
-      const link = document.getElementById('nav-auth-link');
-      link.textContent = currentUser.username;
-      link.href = '#';
-    }
-
-    // Load leaderboard
-    function loadLeaderboard() {
-      // Try PHP backend first
-      fetch('./leaderboard.php')
-        .then(r => r.json())
-        .then(data => renderLeaderboard(data))
-        .catch(() => {
-          // Fallback to localStorage
-          const lb = JSON.parse(localStorage.getItem('breakout_leaderboard') || '[]');
-          renderLeaderboard(lb);
-        });
-    }
-
-    function renderLeaderboard(data) {
-      const tbody = document.getElementById('lbBody');
-      const table = document.getElementById('lbTable');
-      const empty = document.getElementById('lbEmpty');
-
-      if (!data || data.length === 0) {
-        table.style.display = 'none';
-        empty.style.display = 'block';
-        return;
-      }
-
-      table.style.display = 'table';
-      empty.style.display = 'none';
-      tbody.innerHTML = '';
-
-      data.slice(0, 20).forEach((entry, i) => {
-        const rank = i + 1;
-        let rankClass = '';
-        let rankLabel = `#${rank}`;
-        if (rank === 1) { rankClass = 'rank-gold'; rankLabel = '🥇'; }
-        else if (rank === 2) { rankClass = 'rank-silver'; rankLabel = '🥈'; }
-        else if (rank === 3) { rankClass = 'rank-bronze'; rankLabel = '🥉'; }
-
-        const isYou = currentUser && entry.username === currentUser.username;
-
-        const tr = document.createElement('tr');
-        if (isYou) tr.className = 'your-row';
-        tr.innerHTML = `
-          <td class="${rankClass}">${rankLabel}</td>
-          <td class="player-name">${entry.username}${isYou ? ' (you)' : ''}</td>
-          <td class="player-score">${entry.score}</td>
-          <td class="player-date">${entry.date || '—'}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    loadLeaderboard();
-  </script>
 </body>
 </html>

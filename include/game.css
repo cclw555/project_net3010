@@ -1,0 +1,106 @@
+.game-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 60px;
+      min-height: calc(100vh - 60px);
+    }
+
+    .game-hud {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 16px;
+    }
+
+    .hud-score {
+      font-family: var(--font-display);
+      font-size: 14px;
+      color: var(--neon-yellow);
+      text-shadow: 0 0 12px rgba(255, 230, 0, 0.4);
+    }
+
+    .hud-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .game-canvas-wrap {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(0, 240, 255, 0.1), inset 0 0 80px rgba(0,0,0,0.4);
+      border: 2px solid rgba(0, 240, 255, 0.15);
+    }
+
+    #gameCanvas {
+      display: block;
+      background: #08081a;
+    }
+
+    /* Overlay for game over / win */
+    .game-overlay {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(8, 8, 26, 0.92);
+      backdrop-filter: blur(6px);
+      z-index: 10;
+    }
+
+    .game-overlay.active {
+      display: flex;
+    }
+
+    .overlay-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+
+    .overlay-title.win { color: var(--neon-green); text-shadow: 0 0 20px rgba(57,255,20,0.5); }
+    .overlay-title.lose { color: var(--danger); text-shadow: 0 0 20px rgba(255,51,85,0.5); }
+
+    .overlay-score {
+      font-family: var(--font-display);
+      font-size: 13px;
+      color: var(--neon-yellow);
+      margin-bottom: 28px;
+    }
+
+    .overlay-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    /* Pause badge */
+    .pause-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 20px rgba(0,240,255,0.6);
+      letter-spacing: 6px;
+      display: none;
+      z-index: 5;
+    }
+
+    .pause-badge.active { display: block; }
+
+    .back-link {
+      margin-top: 24px;
+      color: var(--text-muted);
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--neon-cyan); }
