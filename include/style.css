@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Chakra+Petch:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Chakra+Petch:wght@400;600;700&display=swap");
 
 :root {
   --bg-dark: #0a0a1a;
@@ -14,11 +14,13 @@
   --border-glow: rgba(0, 240, 255, 0.3);
   --danger: #ff3355;
   --radius: 8px;
-  --font-display: 'Press Start 2P', monospace;
-  --font-body: 'Chakra Petch', sans-serif;
+  --font-display: "Press Start 2P", monospace;
+  --font-body: "Chakra Petch", sans-serif;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -38,13 +40,27 @@ body {
 }
 
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(0, 240, 255, 0.04) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(255, 0, 170, 0.04) 0%, transparent 60%),
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.008) 2px, rgba(255,255,255,0.008) 4px);
+    radial-gradient(
+      ellipse at 20% 50%,
+      rgba(0, 240, 255, 0.04) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 80% 20%,
+      rgba(255, 0, 170, 0.04) 0%,
+      transparent 60%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.008) 2px,
+      rgba(255, 255, 255, 0.008) 4px
+    );
   pointer-events: none;
   z-index: 0;
 }
@@ -86,12 +102,14 @@ nav {
   font-size: 14px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  transition: color 0.25s, text-shadow 0.25s;
+  transition:
+    color 0.25s,
+    text-shadow 0.25s;
   position: relative;
 }
 
 .nav-links a::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -4px;
   left: 0;
@@ -102,12 +120,14 @@ nav {
   transition: width 0.3s;
 }
 
-.nav-links a:hover, .nav-links a.active {
+.nav-links a:hover,
+.nav-links a.active {
   color: var(--neon-cyan);
   text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
 }
 
-.nav-links a:hover::after, .nav-links a.active::after {
+.nav-links a:hover::after,
+.nav-links a.active::after {
   width: 100%;
 }
 
@@ -134,12 +154,18 @@ nav {
 .btn-primary {
   background: linear-gradient(135deg, var(--neon-cyan), #0088aa);
   color: var(--bg-dark);
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+  box-shadow:
+    0 0 20px rgba(0, 240, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  width: 100%;
+  margin-top: 8px;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 40px rgba(0, 240, 255, 0.5), inset 0 1px 0 rgba(255,255,255,0.2);
+  box-shadow:
+    0 0 40px rgba(0, 240, 255, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .btn-secondary {
@@ -171,7 +197,9 @@ nav {
   border-radius: 12px;
   padding: 32px;
   position: relative;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
 }
 
 .card:hover {
@@ -204,7 +232,9 @@ nav {
   font-family: var(--font-body);
   font-size: 15px;
   outline: none;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
 }
 
 .form-group input:focus {
@@ -243,7 +273,9 @@ footer span {
   z-index: 1;
 }
 
-.text-center { text-align: center; }
+.text-center {
+  text-align: center;
+}
 
 .section-title {
   font-family: var(--font-display);
@@ -257,13 +289,24 @@ footer span {
 /* ── ANIMATIONS ── */
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 20px rgba(0, 240, 255, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(0, 240, 255, 0.6); }
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.6);
+  }
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .fade-in {
@@ -274,10 +317,18 @@ footer span {
   animation: pulseGlow 1s ease-out both;
 }
 
-.fade-in-delay-1 { animation-delay: 0.15s; }
-.fade-in-delay-2 { animation-delay: 0.3s; }
-.fade-in-delay-3 { animation-delay: 0.45s; }
-.fade-in-delay-4 { animation-delay: 0.6s; }
+.fade-in-delay-1 {
+  animation-delay: 0.15s;
+}
+.fade-in-delay-2 {
+  animation-delay: 0.3s;
+}
+.fade-in-delay-3 {
+  animation-delay: 0.45s;
+}
+.fade-in-delay-4 {
+  animation-delay: 0.6s;
+}
 
 /* ── TOAST ── */
 .toast {
@@ -351,16 +402,43 @@ footer span {
   border-radius: 0 var(--radius) var(--radius) 0;
 }
 
-.rank-gold { color: var(--neon-yellow); font-family: var(--font-display); font-size: 12px; }
-.rank-silver { color: #c0c0c0; font-family: var(--font-display); font-size: 12px; }
-.rank-bronze { color: #cd7f32; font-family: var(--font-display); font-size: 12px; }
+.rank-gold {
+  color: var(--neon-yellow);
+  font-family: var(--font-display);
+  font-size: 12px;
+}
+.rank-silver {
+  color: #c0c0c0;
+  font-family: var(--font-display);
+  font-size: 12px;
+}
+.rank-bronze {
+  color: #cd7f32;
+  font-family: var(--font-display);
+  font-size: 12px;
+}
 
 /* ── RESPONSIVE ── */
 @media (max-width: 640px) {
-  nav { padding: 12px 16px; flex-wrap: wrap; gap: 12px; }
-  .nav-links { gap: 16px; }
-  .nav-links a { font-size: 11px; }
-  .container { padding: 0 16px; }
-  .section-title { font-size: 13px; }
-  .btn { padding: 12px 20px; font-size: 10px; }
+  nav {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .nav-links {
+    gap: 16px;
+  }
+  .nav-links a {
+    font-size: 11px;
+  }
+  .container {
+    padding: 0 16px;
+  }
+  .section-title {
+    font-size: 13px;
+  }
+  .btn {
+    padding: 12px 20px;
+    font-size: 10px;
+  }
 }

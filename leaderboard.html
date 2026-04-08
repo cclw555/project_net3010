@@ -1,55 +1,54 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="">
-  <meta name="description" content="Breakout — Global Leaderboard">
-  <title>Breakout — Leaderboard</title>
-  <link rel="stylesheet" href="include/style.css">
-  <link rel="stylesheet" href="include/leaderboard.css">
-  <script src="include/leaderboard.js" defer></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="" />
+    <meta name="description" content="Breakout — Global Leaderboard" />
+    <title>Breakout — Leaderboard</title>
+    <link rel="stylesheet" href="include/style.css" />
+    <link rel="stylesheet" href="include/leaderboard.css" />
+    <script src="include/leaderboard.js" defer></script>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a href="index.html" class="nav-logo">BREAKOUT</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="game.html">Play</a></li>
+        <li><a href="leaderboard.html" class="active">Leaderboard</a></li>
+        <li><a href="login.html" id="nav-auth-link">Login</a></li>
+      </ul>
+    </nav>
 
-  <!-- NAV -->
-  <nav>
-    <a href="index.html" class="nav-logo">BREAKOUT</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="game.html">Play</a></li>
-      <li><a href="leaderboard.html" class="active">Leaderboard</a></li>
-      <li><a href="login.html" id="nav-auth-link">Login</a></li>
-    </ul>
-  </nav>
-
-  <div class="container lb-wrapper">
-    <div class="lb-header fade-in">
-      <h2 class="section-title" style="margin-bottom:0;">// Leaderboard</h2>
-      <a href="game.html" class="btn btn-primary btn-small">▶ Play</a>
-    </div>
-
-    <div class="card fade-in fade-in-delay-1" id="lbCard">
-      <div class="lb-empty" id="lbEmpty">
-        <div class="lb-empty-icon">🏆</div>
-        <p>No scores yet. Be the first to play!</p>
+    <div class="container lb-wrapper">
+      <div class="lb-header fade-in">
+        <h2 class="section-title">// Leaderboard</h2>
+        <a href="game.html" class="btn btn-primary btn-small">▶ Play</a>
       </div>
-      <table class="lb-table" id="lbTable" style="display:none;">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Player</th>
-            <th>Score</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody id="lbBody"></tbody>
-      </table>
-    </div>
-  </div>
 
-  <footer>
-    <p>Leaderboard · Breakout 2026</p>
-  </footer>
-</body>
+      <div class="card fade-in fade-in-delay-1" id="lbCard">
+        <div class="lb-empty" id="lbEmpty">
+          <div class="lb-empty-icon">🏆</div>
+          <p>No scores yet. Be the first to play!</p>
+        </div>
+        <table class="lb-table" id="lbTable">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Player</th>
+              <th>Score</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="lbBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <footer>
+      <p>Leaderboard · Breakout 2026</p>
+    </footer>
+  </body>
 </html>

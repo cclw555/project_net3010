@@ -1,54 +1,65 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Zongrui Liu">
-  <meta name="description" content="Breakout — Login">
-  <title>Breakout — Login</title>
-  <link rel="stylesheet" href="include/style.css">
-  <link rel="stylesheet" href="include/login.css">
-  <script src="include/login.js" defer></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Zongrui Liu" />
+    <meta name="description" content="Breakout — Login" />
+    <title>Breakout — Login</title>
+    <link rel="stylesheet" href="include/style.css" />
+    <link rel="stylesheet" href="include/login.css" />
+    <script src="include/login.js" defer></script>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a href="index.html" class="nav-logo">BREAKOUT</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="game.html">Play</a></li>
+        <li><a href="leaderboard.html">Leaderboard</a></li>
+        <li>
+          <a href="login.html" class="active" id="nav-auth-link">Login</a>
+        </li>
+      </ul>
+    </nav>
 
-  <!-- NAV -->
-  <nav>
-    <a href="index.html" class="nav-logo">BREAKOUT</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="game.html">Play</a></li>
-      <li><a href="leaderboard.html">Leaderboard</a></li>
-      <li><a href="login.html" class="active" id="nav-auth-link">Login</a></li>
-    </ul>
-  </nav>
+    <div class="auth-wrapper">
+      <div class="card auth-card fade-in">
+        <h2 class="auth-title">LOGIN</h2>
+        <p class="auth-sub">Sign in to save your scores</p>
 
-  <div class="auth-wrapper">
-    <div class="card auth-card fade-in">
-      <h2 class="auth-title">LOGIN</h2>
-      <p class="auth-sub">Sign in to save your scores</p>
+        <div class="auth-error" id="loginError"></div>
 
-      <div class="auth-error" id="loginError"></div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter username"
+            autocomplete="username"
+          />
+        </div>
 
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" placeholder="Enter username" autocomplete="username">
-      </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter password"
+            autocomplete="current-password"
+          />
+        </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter password" autocomplete="current-password">
-      </div>
+        <button class="btn btn-primary" id="btnLogin">Login</button>
 
-      <button class="btn btn-primary" style="width:100%; margin-top:8px;" id="btnLogin">Login</button>
-
-      <div class="auth-footer">
-        Don't have an account? <a href="register.html">Register here</a>
+        <div class="auth-footer">
+          Don't have an account? <a href="register.html">Register here</a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Toast -->
-  <div class="toast toast-success" id="toast"></div>
-</body>
+    <!-- Toast -->
+    <div class="toast toast-success" id="toast"></div>
+  </body>
 </html>
