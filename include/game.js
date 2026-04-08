@@ -7,10 +7,11 @@
    controls, game over handling, and leaderboard score submission.
 */
 
+// Get canvas element and 2D drawing context
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-// ── CONFIG ──
+// Game settings
 const CONFIG = {
   ball: { radius: 7, speed: 4 },
   paddle: { width: 100, height: 12, speed: 7, color: "#00f0ff" },
@@ -25,18 +26,25 @@ const CONFIG = {
   },
   colors: ["#ff00aa", "#ff6a00", "#ffe600", "#39ff14"],
 };
-
-// ── STATE ──
+// Game state variables
 let score = 0;
 let paused = false;
 let gameOver = false;
 let keysDown = {};
 
-// ── BALL ──
+/*
+  Ball class
+  Stores the ball position, size, and velocity.
+  Handles ball reset, movement, wall collision, and drawing.
+*/
 class Ball {
   constructor() {
     this.reset();
   }
+  /*
+    Reset the ball to its starting position and give it
+    a random upward direction.
+  */
   reset() {
     this.x = canvas.width / 2;
     this.y = canvas.height - 60;
@@ -45,6 +53,10 @@ class Ball {
     this.vx = CONFIG.ball.speed * Math.cos(angle);
     this.vy = CONFIG.ball.speed * Math.sin(angle);
   }
+  /*
+    Update the ball position every frame.
+    Also handles bouncing off the left, right, and top walls.
+  */
   update() {
     this.x += this.vx;
     this.y += this.vy;
@@ -62,6 +74,9 @@ class Ball {
       this.vy = Math.abs(this.vy);
     }
   }
+  /*
+    Draw the ball on the canvas with a glow effect.
+  */
   draw() {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
@@ -76,18 +91,31 @@ class Ball {
   }
 }
 
-// ── PADDLE ──
+/*
+  Paddle class
+  Stores paddle size and position.
+  Handles paddle reset, movement using keyboard input,
+  and drawing on the canvas.
+*/
 class Paddle {
   constructor() {
     this.w = CONFIG.paddle.width;
     this.h = CONFIG.paddle.height;
+    this.color = CONFIG.paddle.color;
     this.y = canvas.height - 28;
     this.x = (canvas.width - this.w) / 2;
   }
+  /*
+    Reset the paddle to the center starting position.
+  */
   reset() {
     this.x = (canvas.width - this.w) / 2;
     this.w = CONFIG.paddle.width;
   }
+  /*
+    Move the paddle left or right based on arrow key input.
+    Keeps the paddle inside the canvas boundaries.
+  */
   update() {
     if (keysDown["ArrowLeft"]) this.x -= CONFIG.paddle.speed;
     if (keysDown["ArrowRight"]) this.x += CONFIG.paddle.speed;
@@ -96,7 +124,7 @@ class Paddle {
     if (this.x + this.w > canvas.width) this.x = canvas.width - this.w;
   }
   draw() {
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.roundRect(this.x, this.y, this.w, this.h, 6);
     ctx.fill();
@@ -108,7 +136,11 @@ class Paddle {
   }
 }
 
-// ── BRICK ──
+/*
+  Brick class
+  Represents one brick in the wall.
+  Stores position, size, color, and whether the brick is still active.
+*/
 class Brick {
   constructor(x, y, color) {
     this.x = x;
@@ -119,6 +151,11 @@ class Brick {
     this.alive = true;
     this.opacity = 1;
   }
+
+  /*
+    Draw the brick if it is still alive.
+    Includes a small highlight for visual style.
+  */
   draw() {
     if (!this.alive) return;
     ctx.globalAlpha = this.opacity;
@@ -133,11 +170,15 @@ class Brick {
   }
 }
 
-// ── INIT ──
+// Create main game objects
 const ball = new Ball();
 const paddle = new Paddle();
 let bricks = [];
-
+/*
+  createBricks()
+  Builds the full brick wall using the row, column,
+  spacing, and color settings from CONFIG.
+*/
 function createBricks() {
   bricks = [];
   const { rows, cols, width, height, padding, offsetTop, offsetLeft } =
@@ -151,7 +192,12 @@ function createBricks() {
   }
 }
 
-// ── COLLISION ──
+/*
+  checkBrickCollision()
+  Checks whether the ball hits any brick.
+  If a collision happens, the brick is removed,
+  the ball bounces, and the score increases.
+*/
 function checkBrickCollision() {
   for (const brick of bricks) {
     if (!brick.alive) continue;
@@ -182,7 +228,11 @@ function checkBrickCollision() {
     }
   }
 }
-
+/*
+  checkPaddleCollision()
+  Checks whether the ball hits the paddle.
+  Changes the bounce angle depending on where the ball lands.
+*/
 function checkPaddleCollision() {
   if (
     ball.y + ball.r >= paddle.y &&
@@ -200,7 +250,11 @@ function checkPaddleCollision() {
   }
 }
 
-// ── GAME FLOW ──
+/*
+  endGame(won)
+  Stops the game, shows the overlay,
+  displays the final score, and submits the score.
+*/
 function endGame(won) {
   gameOver = true;
   const overlay = document.getElementById("gameOverlay");
@@ -214,7 +268,11 @@ function endGame(won) {
   // Submit score if logged in
   submitScore(score);
 }
-
+/*
+  resetGame()
+  Resets score, state, ball, paddle, and bricks
+  so the player can start a new game.
+*/
 function resetGame() {
   score = 0;
   gameOver = false;
@@ -227,7 +285,11 @@ function resetGame() {
   createBricks();
 }
 
-// ── SCORE SUBMISSION ──
+/*
+  submitScore(finalScore)
+  Sends the score to the backend if a user is logged in.
+  If the backend fails, it saves the score in localStorage instead.
+*/
 function submitScore(finalScore) {
   const user = JSON.parse(localStorage.getItem("breakout_user") || "null");
   if (!user) return; // only submit if logged in
@@ -253,7 +315,11 @@ function submitScore(finalScore) {
   });
 }
 
-// ── DRAW ──
+/*
+  draw()
+  Clears the canvas and redraws the background,
+  bricks, paddle, and ball every frame.
+*/
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -278,7 +344,12 @@ function draw() {
   ball.draw();
 }
 
-// ── GAME LOOP ──
+/*
+  Main animation loop.
+  Updates the game state, checks collisions,
+  decides win/lose, redraws the screen,
+  and schedules the next frame.
+*/
 function gameLoop() {
   if (!gameOver) {
     if (!paused) {
@@ -302,7 +373,7 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
-// ── INPUT ──
+// Keyboard input: track keys, pause with P, restart with R
 document.addEventListener("keydown", (e) => {
   keysDown[e.key] = true;
   if (e.key === "p" || e.key === "P") {
@@ -314,21 +385,23 @@ document.addEventListener("keydown", (e) => {
   }
   if (e.key === "r" || e.key === "R") resetGame();
 });
+// Keyboard input: remove released key from active state
 document.addEventListener("keyup", (e) => {
   keysDown[e.key] = false;
 });
-
+// Pause button click handler
 document.getElementById("btnPause").addEventListener("click", () => {
   paused = !paused;
   document.getElementById("pauseBadge").classList.toggle("active", paused);
   document.getElementById("btnPause").textContent = paused ? "Resume" : "Pause";
 });
+// Restart button handlers
 document.getElementById("btnRestart").addEventListener("click", resetGame);
 document
   .getElementById("btnOverlayRestart")
   .addEventListener("click", resetGame);
 
-// Auth nav link
+// Show username in nav if logged in, and allow logout
 const user = JSON.parse(localStorage.getItem("breakout_user") || "null");
 if (user) {
   const link = document.getElementById("nav-auth-link");
